@@ -1,16 +1,25 @@
 {{ $slot }}
 
+@if($errors->any())
+  <div style="background-color: rgba(255, 0, 0, 0.5); padding: 5px; border-radius: 5px">
+  @foreach($errors->all() as $erro)
+    <p style="margin: 0">{{ $erro }}</p>
+  @endforeach
+  </div>
+@endif
+
 <form action="{{ route('site.contato') }}" method="post">
   @csrf
-  <input name="nome" type="text" placeholder="Nome" class="{{ $classe }}">
-  <input name="telefone" type="text" placeholder="Telefone" class="{{ $classe }}">
-  <input name="email" type="text" placeholder="E-mail" class="{{ $classe }}">
-  <select name="motivo_contato" class="{{ $classe }}">
-    <option value="0" selected>Qual o motivo do contato?</option>
-    <option value="1">Dúvida</option>
-    <option value="2">Elogio</option>
-    <option value="3">Reclamação</option>
+  <input name="nome" value="{{ old('nome') }}" type="text" placeholder="Nome" class="{{ $classe }}">
+  <!--p class="p-error">{{-- $errors->has('nome') ? $errors->first('nome') : '' --}}</p-->
+  <input name="telefone" value="{{ old('telefone') }}" type="text" placeholder="Telefone" class="{{ $classe }}">
+  <input name="email" value="{{ old('email') }}" type="text" placeholder="E-mail" class="{{ $classe }}">  
+  <select name="motivo_contatos_id" class="{{ $classe }}">
+    <option value="0">Qual o motivo do contato?</option>
+    @foreach ($motivo_contatos as $key => $motivo)
+      <option value="{{ $motivo->id }}" {{ old('motivo_contatos_id') == $motivo->id ? 'selected' : ''}}>{{ $motivo->motivo_contato }}</option>
+    @endforeach
   </select>
-  <textarea name="mensagem" class="{{ $classe }}" placeholder="Preencha aqui a sua mensagem"></textarea>
+  <textarea name="mensagem" class="{{ $classe }}" placeholder="Preencha aqui a sua mensagem">{{ old('mensagem') != '' ? old('mensagem') : '' }}</textarea>
   <button type="submit" class="{{ $classe }}">ENVIAR</button>
 </form>

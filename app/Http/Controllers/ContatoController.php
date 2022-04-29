@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MotivoContato;
 use App\Models\SiteContato;
 use Illuminate\Http\Request;
 
 class ContatoController extends Controller
 {
     public function contato(Request $request){
-        $contato = new SiteContato();
+        $motivo_contatos = MotivoContato::all();
+        return view('site.contato', ['motivo_contatos' => $motivo_contatos]);
+    }
 
+    public function salvar(Request $request) {
         /*
+        $contato = new SiteContato();
         $contato->nome = $request->input('nome');
         $contato->telefone = $request->input('telefone');
         $contato->email = $request->input('email');
@@ -20,8 +25,18 @@ class ContatoController extends Controller
         $contato->save();
         */
 
-        $contato->create($request->all());
+        $request->validate([
+            'nome'=>'required|min:3|max:40|unique:site_contatos',
+            'telefone'=>'required',
+            'email'=>'required|email',
+            'motivo_contatos_id'=>'required|gt:0',
+            'mensagem'=>'required|max:2000'
+        ],[
+            'nome.required'=>'O campo nome deve ser preenchido.'
+        ]);
 
-        return view('site.contato');
+        SiteContato::create($request->all());
+
+        return redirect()->route('site.index');
     }
 }
