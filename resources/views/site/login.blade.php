@@ -14,9 +14,9 @@
 
       @if($errors->any())
         <div style="background-color: rgba(255, 0, 0, 0.5); padding: 5px; border-radius: 5px">
-        @foreach($errors->all() as $erro)
-          <p style="margin: 0">{{ $erro }}</p>
-        @endforeach
+          @foreach($errors->all() as $e)
+            <p style="margin: 0">{{ $e }}</p>
+          @endforeach
         </div>
       @endif
 
@@ -24,6 +24,7 @@
         @csrf
         <input name="usuario" type="text" value="{{ old('usuario') }}" placeholder="Digite o Usuário" class="borda-preta"/>
         <input name="senha" type="password" placeholder="Digite a Senha" class="borda-preta"/>
+        <p style="margin: 0">{{ isset($erro) && $erro != '' ? $erro : '' }}</p>
         <button type="submit" class="borda-preta">Acessar</button>
       </form>
     </div>

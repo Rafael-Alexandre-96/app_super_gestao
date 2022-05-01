@@ -19,7 +19,7 @@ class SiteContatoSeeder extends Seeder
         $contato->nome = 'Sistema SG';
         $contato->telefone = '(11) 3333-3333';
         $contato->email = 'contato@sg.com.br';
-        $contato->motivo_contato = '1';
+        $contato->motivo_contatos_id = '1';
         $contato->mensagem = 'Seja bem-vindo ao sistema Super Gestão';
         $contato->save();
     }
