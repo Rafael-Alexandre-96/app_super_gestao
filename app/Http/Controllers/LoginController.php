@@ -24,7 +24,6 @@ class LoginController extends Controller
         session_start();
         unset($_SESSION['nome']);
         unset($_SESSION['email']);
-        session_destroy();
 
         $request->validate([
             'usuario' => 'email',
