@@ -25,9 +25,11 @@ Route::get('/login/{erro?}', 'App\Http\Controllers\LoginController@index')->name
 Route::post('/login', 'App\Http\Controllers\LoginController@autenticar')->name('site.login');
 
 Route::middleware('autenticacao:padrao')->prefix('/app')->group(function(){
-    Route::get('/clientes', function(){ return 'Clientes'; })->name('app.clientes');
-    Route::get('/fornecedores', function(){ return 'Fornecedores'; })->name('app.fornecedores');
-    Route::get('/produtos', function(){ return 'Produtos'; })->name('app.produtos');
+    Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('app.home');
+    Route::get('/sair', 'App\Http\Controllers\LoginController@sair')->name('app.sair');
+    Route::get('/cliente', 'App\Http\Controllers\ClienteController@index')->name('app.cliente');
+    Route::get('/fornecedor', 'App\Http\Controllers\FornecedorController@index')->name('app.fornecedor');
+    Route::get('/produto', 'App\Http\Controllers\ProdutoController@index')->name('app.produto');
 });
 
 Route::fallback(function(){

@@ -24,6 +24,7 @@ class LoginController extends Controller
         session_start();
         unset($_SESSION['nome']);
         unset($_SESSION['email']);
+        session_destroy();
 
         $request->validate([
             'usuario' => 'email',
@@ -39,9 +40,16 @@ class LoginController extends Controller
         if(isset($usuario->name)) {
             $_SESSION['nome'] = $usuario->name;
             $_SESSION['email'] = $usuario->email;
-            return redirect()->route('app.clientes');
+            return redirect()->route('app.home');
         } else {
             return redirect()->route('site.login', ['erro'=>1]);
         }
+    }
+
+    public function sair() {
+        unset($_SESSION['nome']);
+        unset($_SESSION['email']);
+        session_destroy();
+        return redirect()->route('site.index');
     }
 }
