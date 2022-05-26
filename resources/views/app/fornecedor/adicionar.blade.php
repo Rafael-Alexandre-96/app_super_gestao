@@ -13,7 +13,7 @@
   </div>
   <div class="informacao-pagina">
     <div style="width: 30%; margin: 0 auto;">
-      {{ $msg }}
+      {{ $msg ?? '' }}
       @if($errors->any())
         <div style="background-color: rgba(255, 0, 0, 0.5); padding: 5px; border-radius: 5px">
           @foreach($errors->all() as $e)
@@ -22,11 +22,12 @@
         </div>
       @endif
       <form method="post" action="{{ route('app.fornecedor.adicionar') }}">
+        <input type="hidden" name="id" value="{{ $fornecedor->id ?? ''}}">
         @csrf
-        <input type="text" name="nome" value="{{ old('nome') }}" placeholder="Nome" class="borda-preta" />
-        <input type="text" name="site" value="{{ old('site') }}" placeholder="Site" class="borda-preta" />
-        <input type="text" name="uf" value="{{ old('uf') }}" placeholder="UF" class="borda-preta" />
-        <input type="text" name="email" value="{{ old('email') }}" placeholder="E-mail" class="borda-preta" />
+        <input type="text" name="nome" value="{{ $fornecedor->nome ?? old('nome') }}" placeholder="Nome" class="borda-preta" />
+        <input type="text" name="site" value="{{ $fornecedor->site ?? old('site') }}" placeholder="Site" class="borda-preta" />
+        <input type="text" name="uf" value="{{ $fornecedor->uf ?? old('uf') }}" placeholder="UF" class="borda-preta" />
+        <input type="text" name="email" value="{{ $fornecedor->email ?? old('email') }}" placeholder="E-mail" class="borda-preta" />
         <button type="submit" class="borda-preta">Cadastrar</button>
       </form>
     </div>

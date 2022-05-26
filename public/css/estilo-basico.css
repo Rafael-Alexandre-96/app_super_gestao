@@ -202,3 +202,7 @@ button:hover {
   text-align: left;
   font-style: italic;
 }
+
+nav svg {
+  display: none !important;
+}
