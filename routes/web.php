@@ -41,7 +41,7 @@ Route::middleware('autenticacao:padrao')->prefix('/app')->group(function(){
 
     Route::get('/fornecedor/excluir/{id}', 'App\Http\Controllers\FornecedorController@excluir')->name('app.fornecedor.excluir');
 
-    Route::get('/produto', 'App\Http\Controllers\ProdutoController@index')->name('app.produto');
+    Route::resource('produto', 'App\Http\Controllers\ProdutoController');
 });
 
 Route::fallback(function(){
